@@ -1,0 +1,14 @@
+## versioning
+bump2version   >=0.5.10
+## code quality
+pre-commit     >=1.17
+black          >=19.3b
+pylint         >=2.3
+## testing
+pytest         >=5.0
+pytest-timeout >=1.3
+tox            >=3.13
+## documentation
+sphinx         >=2.0
+sphinxcontrib-napoleon >=0.7
+sphinx_rtd_theme

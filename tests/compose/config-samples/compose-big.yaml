@@ -1,0 +1,37 @@
+version: "2019.8.21"
+tasks-dir: /opt/ci-python/src
+conda-envs:
+  - &BASE base
+  - &PYTHON36-21 ci-python36-2.1
+  - &PYTHON36-2019-8-14 python36-2019.8.14
+entrypoint: main.py
+tasks:
+  numbers:
+    loc: db/numbers
+    env: *PYTHON36-21
+  calendar:
+    loc: db/calendar
+    env: *PYTHON36-21
+  time_period:
+    loc: db/time_period
+    env: *PYTHON36-21
+    uses: [numbers, calendar]
+  user:
+    loc: db/user
+    env: *PYTHON36-21
+  jira:
+    loc: db/jira
+    env: *PYTHON36-21
+    uses: user
+  woopra_session:
+    loc: db/woopra_session
+    env: *PYTHON36-21
+    uses: user
+  woopra_pageview:
+    loc: db/woopra_pageview
+    env: *PYTHON36-21
+    uses: [user, woopra_session]
+  account_user_woopra_pageview_summary:
+    loc: db/account_user_woopra_pageview_summary
+    env: *PYTHON36-21
+    uses: [woopra_pageview, woopra_session]
