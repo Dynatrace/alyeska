@@ -48,10 +48,7 @@ def mfa_from_str(s: str, *, include_expiration=False) -> dict:
     Example:
         >>> import dynatrace_locksmith as ls
         >>> creds = ls.mfa_from_str(cred_str)
-        >>> session = boto3.Session(**creds)
-
-    Notes:
-        Assume str has format
+        >>> creds
         {
             "Credentials": {
                 "AccessKeyId": "1234567890",
@@ -60,6 +57,8 @@ def mfa_from_str(s: str, *, include_expiration=False) -> dict:
                 "Expiration": "2018-11-02T05:15:21Z"
             }
         }
+
+        >>> session = boto3.Session(**creds)
     """
     creds = json.loads(s)["Credentials"]
     creds["aws_access_key_id"] = creds.pop("AccessKeyId")

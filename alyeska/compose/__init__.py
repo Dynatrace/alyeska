@@ -481,12 +481,8 @@ class Composer:
             `dict` of `Task`: `int`
 
         Example:
-            make_tea -> pour_tea -> drink_tea will give the dict
-            {
-                make_tea: 1,
-                pour_tea: 2,
-                drink_tea: 3
-            }
+            make_tea -> pour_tea -> drink_tea will give the dict:
+            {make_tea: 1, pour_tea: 2, drink_tea: 3}
         """
         dag = self.dag  # copy to something easier to read
         task_priority = defaultdict(int)
