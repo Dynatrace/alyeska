@@ -1,0 +1,14 @@
+version: "2019.8.21"
+conda-envs:
+  - &BASE base
+  - &PYTHON36-21 ci-python36-2.1
+  - &PYTHON36-2019-8-14 python36-2019.8.14
+tasks-dir: /workspaces/ci-python/src/cdh
+entrypoint: main.py
+tasks:
+  agent_history:
+    loc: agent_history
+    env: *PYTHON36-21
+  application_history:
+    loc: application_history
+    env: *PYTHON36-21

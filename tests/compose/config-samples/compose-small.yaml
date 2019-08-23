@@ -1,0 +1,16 @@
+version: "2019.8.21"
+conda-envs:
+  - &BASE base
+  - &PYTHON36-21 ci-python36-2.1
+  - &PYTHON36-2019-8-14 python36-2019.8.14
+tasks:
+  numbers:
+    loc: db/numbers/main.py
+    env: *PYTHON36-21
+  calendar:
+    loc: db/calendar/main.py
+    env: *PYTHON36-21
+  time_period:
+    loc: db/time_period/main.py
+    env: *PYTHON36-21
+    uses: [numbers, calendar]
