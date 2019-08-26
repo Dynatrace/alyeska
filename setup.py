@@ -27,7 +27,9 @@ setup(
     test_suite="tests",
     tests_require="pytest",
     classifiers=[
-        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Development Status :: 3 - Alpha",
         "License :: OSI Approved :: Apache Software License",
         "Operating System :: OS Independent",
