@@ -11,12 +11,11 @@ with open("requirements.txt") as f:
 setup(
     name="alyeska",
     version=version["__version__"],
-    description="""CI Alyeska For maintaining the CI data warehouse""",
-    long_description=open("readme.md").read(),
-    url="https://bitbucket.lab.dynatrace.org/projects/DONE/repos/ci-alyeska/",
+    description="Alyeska /al-ee-EHS-kah/ n. A Data Pipeline Toolkit",
+    long_description=open("readme.rst").read(),
+    url="https://github.com/Dynatrace/alyeska",
     author="Nick Vogt",
     author_email="nick.vogt@dynatrace.com",
-    license="Dynatrace",
     packages=find_packages(exclude=["tests"]),
     entry_points={
         "console_scripts": [
@@ -27,4 +26,10 @@ setup(
     install_requires=requirements,
     test_suite="tests",
     tests_require="pytest",
+    classifiers=[
+        "Programming Language :: Python :: 3",
+        "Development Status :: 3 - Alpha",
+        "License :: OSI Approved :: Apache Software License",
+        "Operating System :: OS Independent",
+    ],
 )
