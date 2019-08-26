@@ -12,7 +12,7 @@ import alyeska.locksmith as ls
 from alyeska.locksmith.redshift import connect_with_environment
 import alyeska.sqlagent as sa
 
-from test_sqlagent_globals import PYTHON_JOB1_SECRET_NAME
+ALYESKA_REDSHIFT_SECRET = os.getenv("ALYESKA_REDSHIFT_SECRET")
 
 
 def make_dummy_dir(tmpdir: os.path) -> Tuple[pathlib.Path]:
@@ -82,7 +82,7 @@ def test_output__plan_tasks__nested_dir(tmpdir):
 @pytest.mark.timeout(3)
 def test_output__execute_tasks(tmpdir):
     sql1, sql2, sql3, _ = make_dummy_dir(tmpdir)
-    cnxn = connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = connect_with_environment(ALYESKA_REDSHIFT_SECRET)
     sa.execute_tasks(cnxn, sql1, sql2, sql3)
 
     expectation = [1, 2, 3, 4, 5, 6]
@@ -93,7 +93,7 @@ def test_output__execute_tasks(tmpdir):
 @pytest.mark.timeout(3)
 def test_output__process_batch(tmpdir):
     make_dummy_dir(tmpdir)
-    cnxn = connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = connect_with_environment(ALYESKA_REDSHIFT_SECRET)
 
     sa.process_batch(cnxn, tmpdir)
 
@@ -104,7 +104,7 @@ def test_output__process_batch(tmpdir):
 
 @pytest.mark.timeout(3)
 def test_input__run_subtasks(tmpdir):
-    cnxn = connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = connect_with_environment(ALYESKA_REDSHIFT_SECRET)
     p = pathlib.Path(tmpdir)
     sql1, sql2, sql3, txt = make_dummy_dir(p)
     subtasks = OrderedDict({sql1: "sql1", sql2: "sql2", sql3: "sql3", txt: "txt"})
@@ -115,7 +115,7 @@ def test_input__run_subtasks(tmpdir):
 
 @pytest.mark.timeout(3)
 def test_output__run_subtasks(tmpdir):
-    cnxn = connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = connect_with_environment(ALYESKA_REDSHIFT_SECRET)
     p = pathlib.Path(tmpdir)
     sql1, sql2, sql3, _ = make_dummy_dir(p)
     subtasks = OrderedDict({sql1: "sql1", sql2: "sql2"})

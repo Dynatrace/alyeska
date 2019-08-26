@@ -11,6 +11,8 @@ import alyeska as aly
 import alyeska.locksmith as ls
 import alyeska.locksmith.redshift as rs
 
+ALYESKA_REDSHIFT_SECRET = os.getenv("ALYESKA_REDSHIFT_SECRET")
+
 
 def make_dummy_dir(tmpdir: os.path) -> Tuple[pathlib.Path]:
     """construct a dummy directory for tests
@@ -39,8 +41,7 @@ def make_dummy_dir(tmpdir: os.path) -> Tuple[pathlib.Path]:
 
 
 def test__connect_to_redshift():
-    env_name = os.getenv("ENV_NAME") if os.getenv("ENV_NAME") else "analytics"
-    secret_name = f"/CI/{env_name}/RedShiftServer/cicore/pyjob1"
+    secret_name = ALYESKA_REDSHIFT_SECRET
     aly.locksmith.redshift.connect_with_environment(secret_name)
 
 
@@ -55,8 +56,7 @@ def test__simple_sql_task(tmpdir):
         }
     )
 
-    env_name = os.getenv("ENV_NAME") if os.getenv("ENV_NAME") else "analytics"
-    secret_name = f"/CI/{env_name}/RedShiftServer/cicore/pyjob1"
+    secret_name = ALYESKA_REDSHIFT_SECRET
     cnxn = aly.locksmith.redshift.connect_with_environment(secret_name)
 
     aly.sqlagent.run_subtasks(cnxn, subtasks)

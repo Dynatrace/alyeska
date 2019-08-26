@@ -14,7 +14,7 @@ import pytest
 import alyeska.locksmith as ls
 import alyeska.locksmith.redshift as rs
 
-from test_locksmith_globals import PYTHON_JOB1_SECRET_NAME
+ALYESKA_REDSHIFT_SECRET = os.getenv("ALYESKA_REDSHIFT_SECRET")
 
 
 def test__parse_jdbc():
@@ -32,7 +32,7 @@ def test__parse_secret():
     # mfa = ls.mfa_from_str(CITESTUSER_DEV_CREDENTIALS_STR)
     session = boto3.Session()
     secret = ls.get_secret(
-        secret_name=PYTHON_JOB1_SECRET_NAME, session=session, region_name="us-east-1"
+        secret_name=ALYESKA_REDSHIFT_SECRET, session=session, region_name="us-east-1"
     )
     creds = ls.redshift.parse_secret(secret)
 
@@ -43,7 +43,7 @@ def test__connect_with_creds():
     # mfa = ls.mfa_from_str(CITESTUSER_DEV_CREDENTIALS_STR)
     session = boto3.Session()
     secret = ls.get_secret(
-        session=session, secret_name=PYTHON_JOB1_SECRET_NAME, region_name="us-east-1"
+        session=session, secret_name=ALYESKA_REDSHIFT_SECRET, region_name="us-east-1"
     )
     creds = ls.redshift.parse_secret(secret)
     cnxn = ls.redshift.connect_with_credentials(**creds)
@@ -55,15 +55,15 @@ def test__connect_with_session():
     # mfa = ls.mfa_from_str(CITESTUSER_DEV_CREDENTIALS_STR)
     session = boto3.Session()
     cnxn = rs.connect_with_session(
-        session, secret_name=PYTHON_JOB1_SECRET_NAME, region_name="us-east-1"
+        session, secret_name=ALYESKA_REDSHIFT_SECRET, region_name="us-east-1"
     )
 
     assert isinstance(cnxn, psycopg2.extensions.connection)
 
 
 def test__connect_with_environment():
-    cnxn = rs.connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = rs.connect_with_environment(ALYESKA_REDSHIFT_SECRET)
     assert isinstance(cnxn, psycopg2.extensions.connection)
 
-    cnxn = rs.connect_with_environment(PYTHON_JOB1_SECRET_NAME, enable_autocommit=False)
+    cnxn = rs.connect_with_environment(ALYESKA_REDSHIFT_SECRET, enable_autocommit=False)
     assert isinstance(cnxn, psycopg2.extensions.connection)
