@@ -15,6 +15,7 @@ import pytest
 import alyeska.locksmith as ls
 import alyeska.locksmith.redshift as rs
 
+ALYESKA_REDSHIFT_SECRET = os.getenv("ALYESKA_REDSHIFT_SECRET")
 
 CITESTUSER_DEV_CREDENTIALS_FP = pathlib.Path(
     os.path.dirname(__file__), "sample-credentials.txt"
@@ -45,9 +46,7 @@ def test__get_secret():
     session = boto3.Session()
 
     secret = ls.get_secret(
-        secret_name="/CI/analytics/RedShiftServer/cicore/pyjob1",
-        session=session,
-        region_name="us-east-1",
+        secret_name=ALYESKA_REDSHIFT_SECRET, session=session, region_name="us-east-1"
     )
 
     assert isinstance(secret, dict)

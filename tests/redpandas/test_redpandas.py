@@ -3,6 +3,8 @@
 Tests will fail if you don't have valid AWS credentials exported to your dev
 environment.
 """
+import os
+
 import pandas as pd
 import pytest
 
@@ -10,11 +12,11 @@ import alyeska as aly
 import alyeska.locksmith.redshift as rs
 import alyeska.redpandas as rp
 
-from test_redpandas_globals import PYTHON_JOB1_SECRET_NAME
+ALYESKA_REDSHIFT_SECRET = os.getenv("ALYESKA_REDSHIFT_SECRET")
 
 
 def test_input__assert_table_exists():
-    cnxn = rs.connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = rs.connect_with_environment(ALYESKA_REDSHIFT_SECRET)
 
     with pytest.raises(TypeError):
         rp.assert_table_exists("etl", "account")
@@ -23,17 +25,17 @@ def test_input__assert_table_exists():
         rp.assert_table_exists("etl", "account", cnxn=cnxn)
 
     with pytest.raises(rp.MissingTableError):
-        cnxn = rs.connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+        cnxn = rs.connect_with_environment(ALYESKA_REDSHIFT_SECRET)
         rp.assert_table_exists(cnxn, "bad_schema", "bad_table")
 
 
 def test_output__assert_table_exists():
-    cnxn = rs.connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = rs.connect_with_environment(ALYESKA_REDSHIFT_SECRET)
     rp.assert_table_exists(cnxn, "etl", "account")
 
 
 def test__insert_pandas_into():
-    cnxn = rs.connect_with_environment(PYTHON_JOB1_SECRET_NAME)
+    cnxn = rs.connect_with_environment(ALYESKA_REDSHIFT_SECRET)
     expected_len = 3
     expected_df = pd.DataFrame({"a": range(expected_len), "c": range(expected_len)})
 
