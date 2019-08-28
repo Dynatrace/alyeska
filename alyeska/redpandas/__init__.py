@@ -1,20 +1,19 @@
-#!/usr/bin/denv python3
 # -*- coding: utf-8 -*-
-# ----------------------------------------------------------------------------
-# Copyright 2019 Dynatrace LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------
+## Copyright 2019 Dynatrace LLC
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
 """alyeska redpandas module for smoother pandas/redshift functionality
 """
 
@@ -30,7 +29,7 @@ def assert_table_exists(
     cnxn: psycopg2.extensions.connection, schema: str, table: str
 ) -> None:
     """Check that the table actually exists
-    
+
     Args:
         cnxn (psycopg2.extensions.connection): [description]
         schema (str): [description]
@@ -55,7 +54,7 @@ def generate_insert_queries(
     *,
     chunksize: int = 10000,
 ) -> Coroutine:
-    """Generator that helps insert_pandas_into. Assumes totally valid 
+    """Generator that helps insert_pandas_into. Assumes totally valid
     arguments, and colnames must match the schema of the insert table.
 
     Args:

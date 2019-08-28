@@ -1,25 +1,25 @@
-#!/usr/bin/denv python3
 # -*- coding: utf-8 -*-
-# ----------------------------------------------------------------------------
-# Copyright 2019 Dynatrace LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------
+## Copyright 2019 Dynatrace LLC
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
+
 """Alyeska /al-ee-EHS-kah/ n. A Data Pipeline Toolkit
 
 https://github.com/Dynatrace/alyeska
 
-Alyeska, or _Aly_ for short, is a Python toolkit to help manage data pipelines. 
+Alyeska, or _Aly_ for short, is a Python toolkit to help manage data pipelines.
 Tools are broken out into modules with niche purposes:
     - `compose` is a workflow dependency management tool
     - `locksmith` authorizes AWS sessions and Redshift connections
@@ -44,7 +44,7 @@ __author__ = "Nick Vogt"
 __copyright__ = "Copyright 2019, Dynatrace LLC"
 __credits__ = ["Colin Patel-Murray"]
 __license__ = "Apache v2.0"
-__version__ = "0.2.0dev0a"
+__version__ = "0.2.0dev1"
 __maintainer__ = "Nick Vogt"
 __email__ = "vogt4nick@gmail.com"
 __status__ = "Prototype"  # one of "Prototype", "Development", "Production"

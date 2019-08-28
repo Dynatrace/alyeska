@@ -9,4 +9,3 @@ API Documentation
    logging.rst
    redpandas.rst
    sqlagent.rst
-
