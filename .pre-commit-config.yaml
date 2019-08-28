@@ -1,7 +1,28 @@
-default_language_version:
-    python: python3.6
 repos:
-  - repo: https://github.com/ambv/black
+-   repo: https://github.com/Lucas-C/pre-commit-hooks
+    rev: v1.1.6
+    hooks:
+    -   id: forbid-crlf
+    -   id: remove-crlf
+    -   id: forbid-tabs
+    -   id: remove-tabs
+    -   id: insert-license
+        files: \.py$
+        args:
+        - --license-filepath
+        - license-header.txt
+        - --comment-style
+        - "##"
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v2.3.0
+    hooks:
+    - id: detect-private-key
+    - id: end-of-file-fixer
+    - id: fix-encoding-pragma
+    - id: requirements-txt-fixer
+    - id: trailing-whitespace
+
+-   repo: https://github.com/ambv/black
     rev: 19.3b0
     hooks:
     - id: black
