@@ -1,20 +1,19 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-# ----------------------------------------------------------------------------
-# Copyright 2019 Dynatrace LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------
+## Copyright 2019 Dynatrace LLC
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
 """Similar functionality to SQL Server Agent. Flush with functionality to
 automate SQL tasks.
 """
@@ -101,10 +100,10 @@ def process_batch(cnxn: psycopg2.extensions.connection, sql_dir: pathlib.Path) -
 
 def gather_subtasks(d: Dict) -> OrderedDict:
     """Declare subtasks and log messages in order
-    
+
     Args:
         d (Dict): a dict-like object mapping subtasks to log messages
-    
+
     Returns:
         OrderedDict: map tasks to log messages in order of execution
     """
@@ -124,7 +123,7 @@ def run_subtasks(
     Args:
         cnxn (psycopg2.extensions.connection): Database connection used to run
             subtasks.
-        subtasks (OrderedDict[pathlib.Path, str]): OrderedDict containing paths 
+        subtasks (OrderedDict[pathlib.Path, str]): OrderedDict containing paths
             to sql files mapped to the text read by logger.
 
     Returns:

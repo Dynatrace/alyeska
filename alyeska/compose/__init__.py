@@ -1,20 +1,19 @@
-#!/usr/bin/denv python3
 # -*- coding: utf-8 -*-
-# ----------------------------------------------------------------------------
-# Copyright 2019 Dynatrace LLC
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-#
-#     https://www.apache.org/licenses/LICENSE-2.0
-#
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ----------------------------------------------------------------------------
+## ---------------------------------------------------------------------------
+## Copyright 2019 Dynatrace LLC
+##
+## Licensed under the Apache License, Version 2.0 (the "License");
+## you may not use this file except in compliance with the License.
+## You may obtain a copy of the License at
+##
+##     http://www.apache.org/licenses/LICENSE-2.0
+##
+## Unless required by applicable law or agreed to in writing, software
+## distributed under the License is distributed on an "AS IS" BASIS,
+## WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+## See the License for the specific language governing permissions and
+## limitations under the License.
+## ---------------------------------------------------------------------------
 """Task, DAG, and Composer classes
 
 This module defines the Task, DAG, and Composer classes. Tasks are intended to
@@ -129,7 +128,7 @@ class DAG:
     Attributes:
         tasks (`set` of `Task`): The set of all tasks. Composer will try to
             run every task in this attribute.
-        _edges (`dict` of `Task`: `set` of `Task`): Maps tasks to their 
+        _edges (`dict` of `Task`: `set` of `Task`): Maps tasks to their
            downstream dependencies. Access directly at your own peril.
            e.g. A -> B -> C, not C -> B -> A
     """
@@ -431,7 +430,7 @@ class DAG:
     @classmethod
     def from_yaml(cls, p: pathlib.Path) -> "DAG":
         """Create a DAG from a compose.yaml file
-        
+
         Returns:
             DAG: Directed Acyclic Graph representation of compose.yaml
         """
@@ -523,7 +522,7 @@ class Composer:
     @classmethod
     def from_yaml(cls, p: pathlib.Path) -> "Composer":
         """Create a Composer from a compose.yaml file
-        
+
         Returns:
             Composer: A Composer representation of compose.yaml
         """

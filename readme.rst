@@ -39,4 +39,3 @@ Namesake
 ^^^^^^^^
 
 The Alyeska Pipeline Service company maintains the Alaska pipeline; a 1, 200 km long pipeline connecting the oil-rich, subterranean earth in Alaska to port on the north pacific ocean.
-
