@@ -38,7 +38,7 @@ copyright = "2019, Dynatrace LLC"
 author = "Nick Vogt"
 
 # The full version, including alpha/beta/rc tags
-release = "0.1.0a"
+release = "0.2.0dev3"
 
 
 # -- General configuration ---------------------------------------------------
@@ -68,3 +68,7 @@ html_theme = "sphinx_rtd_theme"  # "alabaster"
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = []
+
+# Should fix errors where docs don't build on readthedocs
+# See https://github.com/readthedocs/readthedocs.org/issues/2569#issuecomment-485117471
+master_doc = "index"
