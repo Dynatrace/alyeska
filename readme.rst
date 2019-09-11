@@ -6,8 +6,8 @@ Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 ..     :target: https://pypi.org/project/alyeska/
 
 .. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
-    :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
+    :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
 
 .. .. image:: https://img.shields.io/pypi/v/alyeska.svg?color=blue
 ..     :alt: Version
@@ -17,9 +17,9 @@ Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 ..     :alt: Last Commit
 ..     :target: https://github.com/Dynatrace/alyeska
 
-.. image:: https://img.shields.io/github/license/Dynatrace/alyeska.svg
+.. image:: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
     :alt: License
-    :target: https://github.com/Dynatrace/alyeska
+    :target: ./LICENSE
 
 .. .. image:: https://img.shields.io/pypi/dw/alyeska.svg
 ..     :alt: PyPI - Downloads
