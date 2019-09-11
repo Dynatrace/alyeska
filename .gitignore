@@ -1,3 +1,4 @@
+.config-env.sh
 .DS_Store
 env.sh
 *.credentials
