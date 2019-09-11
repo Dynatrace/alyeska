@@ -21,6 +21,7 @@ repos:
       exclude: .bumpversion.cfg
     - id: fix-encoding-pragma
     - id: requirements-txt-fixer
+      exclude: requirements.dev.txt
     - id: trailing-whitespace
 
 -   repo: https://github.com/ambv/black
