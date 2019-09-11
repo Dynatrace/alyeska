@@ -1,7 +1,33 @@
 Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 =====================================================
 
-.. Leave space for img.shields.io buttons
+.. .. image:: https://img.shields.io/pypi/pyversions/dequindre.svg
+..     :alt: Supported Versions
+..     :target: https://pypi.org/project/dequindre/
+
+.. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
+    :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
+.. .. image:: https://img.shields.io/pypi/v/dequindre.svg?color=blue
+..     :alt: Version
+..     :target: https://pypi.org/project/dequindre/
+
+.. .. image:: https://img.shields.io/github/last-commit/vogt4nick/dequindre.svg
+..     :alt: Last Commit
+..     :target: https://github.com/vogt4nick/dequindre
+
+.. image:: https://img.shields.io/github/license/vogt4nick/alyeska.svg
+    :alt: License
+    :target: https://github.com/vogt4nick/alyeska
+
+.. .. image:: https://img.shields.io/pypi/dw/dequindre.svg
+..     :alt: PyPI - Downloads
+..     :target: https://pypi.org/project/dequindre/
+
+.. image:: https://img.shields.io/github/issues/vogt4nick/alyeska.svg
+    :alt: Count Open Issues
+    :target: https://pypi.org/project/alyeska/
 
 Alyeska is a data engineering toolkit to simplify the nuts & bolts of data engineering tasks.
 
@@ -37,11 +63,13 @@ Learn more about how to config this utility with ``authmfa -h``.
 Large tables can be frustrating to load into Redshift. Alyeska reduces the process to a short one-line statement:
 
 .. code-block:: python
+
     >>> aly.redpandas.insert_pandas_into(cnxn, target_table, payload_df)
 
 In practice, it may function as
 
 .. code-block:: python
+
     >>> import alyeska as aly
     >>> import alyeska.locksmith.redshift as rs
     >>> import pandas as pd
