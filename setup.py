@@ -28,6 +28,7 @@ setup(
     version=version["__version__"],
     description="Alyeska /al-ee-EHS-kah/ n. A Data Pipeline Toolkit",
     long_description=open("readme.rst").read(),
+    long_description_content_type="text/x-rst",
     url="https://github.com/Dynatrace/alyeska",
     author="Nick Vogt",
     author_email="nick.vogt@dynatrace.com",
