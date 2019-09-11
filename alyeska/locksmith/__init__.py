@@ -34,19 +34,38 @@ import boto3
 from botocore.exceptions import ClientError
 
 
-def mfa_from_str(s: str, *, include_expiration=False) -> dict:
-    """Create credentials dict from string. easy to use with boto3.Session
+def mfa_from_str(json_str: str, *, include_expiration=False) -> dict:
+    """Create credentials dict from credentials as a json string.
+
+    This function is a thin wrapper around json.loads
+
+    Args:
+        json_str (str): String containing a json object. e.g.
+            '''
+            {
+                "Credentials": {
+                    "AccessKeyId": "FAKEACCESSKEY",
+                    "SecretAccessKey": "Fake+Secret9Access-Key",
+                    "SessionToken": "f4k3-SE5510N_t0k3n",
+                    "Expiration": "2019-07-30T00:14:27Z"
+                }
+            }
+            '''
+        include_expiration (bool, optional): Whether to include expiration in
+            returned json. Defaults to False.
 
     Returns:
-        dict: like
-            "aws_access_key_id": str
-            "aws_secret_access_key": str
-            "aws_session_token": str
-            "expiration": datetime
+        dict: with types as
+            {
+                "aws_access_key_id": str,
+                "aws_secret_access_key": str,
+                "aws_session_token": str,
+                "expiration": datetime,
+            }
 
     Example:
         >>> import dynatrace_locksmith as ls
-        >>> creds = ls.mfa_from_str(cred_str)
+        >>> creds = ls.mfa_from_str(json_str)
         >>> creds
         {
             "Credentials": {
@@ -59,7 +78,12 @@ def mfa_from_str(s: str, *, include_expiration=False) -> dict:
 
         >>> session = boto3.Session(**creds)
     """
-    creds = json.loads(s)["Credentials"]
+    if not isinstance(json_str, str):
+        raise TypeError("json_str must be a str")
+    if not isinstance(include_expiration, bool):
+        raise TypeError("include_expiration must be a bool")
+
+    creds = json.loads(json_str)["Credentials"]
     creds["aws_access_key_id"] = creds.pop("AccessKeyId")
     creds["aws_secret_access_key"] = creds.pop("SecretAccessKey")
     creds["aws_session_token"] = creds.pop("SessionToken")
@@ -78,7 +102,15 @@ def get_secret(
 ) -> dict:
     """Get secret from secretsmanager using an established session.
 
-    boto3.amazonaws.com/v1/documentation/api/latest/guide/secrets-manager.html
+    See boto3.amazonaws.com/v1/documentation/api/latest/guide/secrets-manager.html
+
+    Args:
+        session (boto3.Session): [description]
+        secret_name (str): [description]
+        region_name (str, optional): [description]. Defaults to "us-east-1".
+
+    Returns:
+        dict: Secret as dict
     """
     if not isinstance(session, boto3.Session):
         raise TypeError("session must be a boto3.Session")
@@ -110,4 +142,4 @@ def get_secret(
             text_secret_data = get_secret_value_response["SecretString"]
             return json.loads(text_secret_data)
         else:
-            raise Exception("SecretString not found. " "Bytes responses not supported.")
+            raise TypeError("SecretString not found. Byte responses not supported.")
