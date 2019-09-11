@@ -38,7 +38,7 @@ copyright = "2019, Dynatrace LLC"
 author = "Nick Vogt"
 
 # The full version, including alpha/beta/rc tags
-release = "0.2.0a"
+release = "0.2.1dev0"
 
 
 # -- General configuration ---------------------------------------------------
@@ -46,7 +46,7 @@ release = "0.2.0a"
 # Add any Sphinx extension module names here, as strings. They can be
 # extensions coming with Sphinx (named 'sphinx.ext.*') or your custom
 # ones.
-extensions = ["sphinx.ext.napoleon", "sphinx.ext.doctest"]
+extensions = ["sphinx.ext.napoleon", "sphinx.ext.doctest", "sphinx.ext.autodoc"]
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ["_templates"]
