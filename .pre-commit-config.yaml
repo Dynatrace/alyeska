@@ -18,6 +18,7 @@ repos:
     hooks:
     - id: detect-private-key
     - id: end-of-file-fixer
+      exclude: .bumpversion.cfg
     - id: fix-encoding-pragma
     - id: requirements-txt-fixer
     - id: trailing-whitespace
