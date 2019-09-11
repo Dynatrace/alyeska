@@ -1,31 +1,31 @@
 Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 =====================================================
 
-.. .. image:: https://img.shields.io/pypi/pyversions/dequindre.svg
+.. .. image:: https://img.shields.io/pypi/pyversions/alyeska.svg
 ..     :alt: Supported Versions
-..     :target: https://pypi.org/project/dequindre/
+..     :target: https://pypi.org/project/alyeska/
 
 .. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
     :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
     :alt: Documentation Status
 
-.. .. image:: https://img.shields.io/pypi/v/dequindre.svg?color=blue
+.. .. image:: https://img.shields.io/pypi/v/alyeska.svg?color=blue
 ..     :alt: Version
-..     :target: https://pypi.org/project/dequindre/
+..     :target: https://pypi.org/project/alyeska/
 
-.. .. image:: https://img.shields.io/github/last-commit/vogt4nick/dequindre.svg
+.. .. image:: https://img.shields.io/github/last-commit/Dynatrace/alyeska.svg
 ..     :alt: Last Commit
-..     :target: https://github.com/vogt4nick/dequindre
+..     :target: https://github.com/Dynatrace/alyeska
 
-.. image:: https://img.shields.io/github/license/vogt4nick/alyeska.svg
+.. image:: https://img.shields.io/github/license/Dynatrace/alyeska.svg
     :alt: License
-    :target: https://github.com/vogt4nick/alyeska
+    :target: https://github.com/Dynatrace/alyeska
 
-.. .. image:: https://img.shields.io/pypi/dw/dequindre.svg
+.. .. image:: https://img.shields.io/pypi/dw/alyeska.svg
 ..     :alt: PyPI - Downloads
-..     :target: https://pypi.org/project/dequindre/
+..     :target: https://pypi.org/project/alyeska/
 
-.. image:: https://img.shields.io/github/issues/vogt4nick/alyeska.svg
+.. image:: https://img.shields.io/github/issues/Dynatrace/alyeska.svg
     :alt: Count Open Issues
     :target: https://pypi.org/project/alyeska/
 
