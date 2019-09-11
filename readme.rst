@@ -81,7 +81,7 @@ In practice, it may function as
     >>> aly.sqlagent.execute_sql(cnxn, sql)  # create table
 
     >>> natural_numbers_df = pd.DataFrame({"n": range(1, 1_000_001)})
-    >>> aly.redpandas.insert_pandas_into(cnxn, target_table,natural_numbers_df)
+    >>> aly.redpandas.insert_pandas_into(cnxn, target_table, natural_numbers_df)
 
 Components
 ----------
