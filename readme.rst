@@ -1,7 +1,33 @@
 Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 =====================================================
 
-.. Leave space for img.shields.io buttons
+.. image:: https://img.shields.io/pypi/pyversions/alyeska.svg
+    :alt: Supported Versions
+    :target: https://pypi.org/project/alyeska/
+
+.. image:: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
+    :alt: License
+    :target: ./LICENSE
+
+.. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
+    :alt: Documentation Status
+    :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
+
+.. image:: https://img.shields.io/pypi/v/alyeska.svg?color=blue
+    :alt: Version
+    :target: https://pypi.org/project/alyeska/
+
+.. image:: https://img.shields.io/pypi/dw/alyeska.svg
+    :alt: PyPI - Downloads
+    :target: https://pypi.org/project/alyeska/
+
+.. image:: https://img.shields.io/github/last-commit/Dynatrace/alyeska.svg
+    :alt: Last Commit
+    :target: https://github.com/Dynatrace/alyeska
+
+.. image:: https://img.shields.io/github/issues/Dynatrace/alyeska.svg
+    :alt: Count Open Issues
+    :target: https://pypi.org/project/alyeska/
 
 Alyeska is a data engineering toolkit to simplify the nuts & bolts of data engineering tasks.
 
@@ -37,11 +63,13 @@ Learn more about how to config this utility with ``authmfa -h``.
 Large tables can be frustrating to load into Redshift. Alyeska reduces the process to a short one-line statement:
 
 .. code-block:: python
+
     >>> aly.redpandas.insert_pandas_into(cnxn, target_table, payload_df)
 
 In practice, it may function as
 
 .. code-block:: python
+
     >>> import alyeska as aly
     >>> import alyeska.locksmith.redshift as rs
     >>> import pandas as pd
@@ -53,7 +81,7 @@ In practice, it may function as
     >>> aly.sqlagent.execute_sql(cnxn, sql)  # create table
 
     >>> natural_numbers_df = pd.DataFrame({"n": range(1, 1_000_001)})
-    >>> aly.redpandas.insert_pandas_into(cnxn, target_table,natural_numbers_df)
+    >>> aly.redpandas.insert_pandas_into(cnxn, target_table, natural_numbers_df)
 
 Components
 ----------
