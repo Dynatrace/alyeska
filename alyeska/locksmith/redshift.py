@@ -38,6 +38,12 @@ from alyeska.locksmith import get_secret
 
 def parse_jdbc(jdbc: str) -> tuple:
     """Parse the jdbc used for redshift connections
+
+    Args:
+        jdbc (str): jdbc connection as str
+
+    Returns:
+        tuple: Tuple of host server, port id, and database name
     """
     if not isinstance(jdbc, str):
         raise TypeError("jdbc must be a str")
@@ -49,7 +55,13 @@ def parse_jdbc(jdbc: str) -> tuple:
 
 def parse_secret(secret: dict) -> dict:
     """Parse credentials from redshift secret. Resulting dict contains
-    dbname, host, password, port, user
+
+    Args:
+        secret (dict): secret as dict with keys "jdbc_connect", "username",
+            "wordpass"
+
+    Returns:
+        dict: with keys dbname, host, password, port, user
     """
     if not isinstance(secret, dict):
         raise TypeError("secret must be a dict")
@@ -76,6 +88,16 @@ def connect_with_credentials(
     Note that `server` must be a web address. You'll need to remove prefixes
     like 'jdbc:sqlserver://'. Similarly, suffixes specifying the port and/or
     database must also be removed.
+
+    Args:
+        host (str): Host server URI
+        dbname (str): database name
+        port (str): Port ID
+        user (str): Username
+        password (str): User password
+
+    Returns:
+        psycopg2.extensions.connection: Redshift connection
     """
     if not isinstance(host, str):
         raise TypeError("`host` must be a str.")
@@ -88,7 +110,6 @@ def connect_with_credentials(
     if not isinstance(password, str):
         raise TypeError("`password` must be a str.")
 
-    # driver = "{Amazon Redshift (x64)}"
     cnxn = psycopg2.connect(
         f"""
         host={host}
@@ -194,7 +215,6 @@ def connect_with_environment(
     Args:
         secret_name (str): secret name recognized by AWS secretsmanager
         **kwargs are same as connect_with_session
-
 
     Returns:
         psycopg2.extensions.connection: Connection to Redshift database
