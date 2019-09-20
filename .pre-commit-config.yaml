@@ -1,30 +1,32 @@
 repos:
--   repo: https://github.com/Lucas-C/pre-commit-hooks
-    rev: v1.1.6
-    hooks:
-    -   id: forbid-crlf
-    -   id: remove-crlf
-    -   id: forbid-tabs
-    -   id: remove-tabs
-    -   id: insert-license
-        files: \.py$
-        args:
-        - --license-filepath
-        - license-header.txt
-        - --comment-style
-        - "##"
--   repo: https://github.com/pre-commit/pre-commit-hooks
-    rev: v2.3.0
-    hooks:
-    - id: detect-private-key
-    - id: end-of-file-fixer
-      exclude: .bumpversion.cfg
-    - id: fix-encoding-pragma
-    - id: requirements-txt-fixer
-      exclude: requirements.dev.txt
-    - id: trailing-whitespace
-
--   repo: https://github.com/ambv/black
-    rev: 19.3b0
-    hooks:
-    - id: black
+- repo: https://github.com/Lucas-C/pre-commit-hooks
+  rev: v1.1.7
+  hooks:
+  - id: forbid-crlf
+  - id: remove-crlf
+  - id: forbid-tabs
+    exclude: .bumpversion.cfg
+  - id: remove-tabs
+    exclude: .bumpversion.cfg
+  - id: insert-license
+    files: \.py$
+    args:
+    - --license-filepath
+    - license-header.txt
+    - --comment-style
+    - "##"
+- repo: https://github.com/pre-commit/pre-commit-hooks
+  rev: v2.3.0
+  hooks:
+  - id: detect-private-key
+  - id: end-of-file-fixer
+    exclude: .bumpversion.cfg
+  - id: fix-encoding-pragma
+  - id: requirements-txt-fixer
+    exclude: requirements.dev.txt
+  - id: trailing-whitespace
+    exclude: .bumpversion.cfg
+- repo: https://github.com/ambv/black
+  rev: 19.3b0
+  hooks:
+  - id: black
