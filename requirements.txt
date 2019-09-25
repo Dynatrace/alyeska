@@ -1,4 +1,5 @@
 boto3     >=1.9.197
+packaging >= 19.2
 pandas    >=0.25.0
 psycopg2-binary  >=2.8.3
 pyotp     >=2.3.0
