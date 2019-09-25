@@ -33,7 +33,7 @@ from logging import info as logging_info
 from pathlib import Path as pathlib_Path
 from typing import Callable, Coroutine, Tuple
 
-# load into alyeska namespace to users can have easy access
+# load into alyeska namespace so users can have easy access
 from alyeska import compose
 from alyeska import locksmith
 from alyeska import logging

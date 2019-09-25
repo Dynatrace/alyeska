@@ -88,7 +88,7 @@ class Task:
         self._env = env
 
     def __hash__(self):
-        """md5 is fast, and chances of colision are really low"""
+        """md5 is fast, and chances of collision are really low"""
         hash_str = "-".join((self.loc.as_posix(), self.env))
         big_int = int(md5(hash_str.encode()).hexdigest(), 16)
 
