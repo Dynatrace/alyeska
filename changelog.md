@@ -13,6 +13,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - ReadTheDocs documentation now builds properly
 
+## Removed
+
+- The check_environment function has been removed.
+
 ## [0.2.0a0] - 2019-09-11
 
 ### Added
