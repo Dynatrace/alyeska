@@ -31,7 +31,7 @@ Tools are broken out into modules with niche purposes:
 from functools import wraps as functools_wraps
 from logging import info as logging_info
 from pathlib import Path as pathlib_Path
-from typing import Callable, Coroutine, Tuple
+from typing import Coroutine
 
 # load into alyeska namespace so users can have easy access
 from alyeska import compose
@@ -44,7 +44,7 @@ __author__ = "Nick Vogt"
 __copyright__ = "Copyright 2019, Dynatrace LLC"
 __credits__ = ["Colin Patel-Murray"]
 __license__ = "Apache v2.0"
-__version__ = "0.2.1dev4"
+__version__ = "0.2.1dev5"
 __maintainer__ = "Nick Vogt"
 __email__ = "vogt4nick@gmail.com"
 __status__ = "Prototype"  # one of "Prototype", "Development", "Production"
@@ -91,28 +91,3 @@ def find_files(
             yield from find_toplevel_objects(obj)
         else:  # don't yield obj twice
             yield obj
-
-
-def check_environment(env_name: str, allowed: Tuple[str]) -> None:
-    """Raise ValueError if invalid environment is selected
-
-    Args:
-        env_name (str)
-        allowed (Tuple[str]): Which env_name values are permitted
-
-    Raises:
-        ValueError: if invalid environment is passed to env_name
-    """
-    logging_info("Checking environment")
-
-    if not isinstance(env_name, str):
-        raise TypeError("`env_name` must be a str")
-    if not isinstance(allowed, (list, tuple)):
-        raise TypeError("`allowed` must be a list or tuple of strs")
-    if not all(isinstance(env, str) for env in allowed):
-        raise TypeError("`allowed` must be a list or tuple of strs")
-
-    if env_name in allowed:
-        logging_info(f"Using environment: {env_name}")
-    else:
-        raise ValueError(f"{env_name} not one of {allowed}")
