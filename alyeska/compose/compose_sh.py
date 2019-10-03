@@ -177,10 +177,8 @@ def init_flags(prefab_flags: List = None) -> None:
         None -- the now-parsed flags can be accessed through the FLAGS variable.
     """
     global FLAGS
-
-    # Don't re-parse flags
     if FLAGS:
-        return
+        raise ValueError("Cannot parse flags more than once.")
 
     parser = argparse.ArgumentParser(
         description="Convert compose.yaml to compose.sh script"
