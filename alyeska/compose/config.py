@@ -60,7 +60,7 @@ def parse_tasks(config: Dict, validate_tasks: bool = False) -> Dict[str, Task]:
     tasks_dir = config.get("tasks-dir")
     entrypoint = config.get("entrypoint")
     for task_name, task_config in config["tasks"].items():
-        # potentially unset keys
+        # potentially unset key
         task_loc = task_config.get("loc", task_name)
 
         # only task_loc is guaranteed present

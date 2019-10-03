@@ -174,7 +174,7 @@ def init_flags(prefab_flags: List = None) -> None:
         prefab_flags (List, optional): A list of flags to parse. Useful for testing.
 
     Returns:
-        None -- the now-parsed flags can be accessed through the COMPOSE_SH_FLAGS variable.
+        None -- the now-parsed flags can be accessed through the FLAGS variable.
     """
     global FLAGS
 
