@@ -108,7 +108,7 @@ def get_tasks_blocks(compose_yaml: pathlib.Path) -> str:
     compose_yaml = pathlib.Path(compose_yaml)
     config = parse_config(compose_yaml)
 
-    task_map = parse_tasks(config, FLAGS.strict)
+    task_map = parse_tasks(config, FLAGS.check_file_presence)
     inv_task_map = {v: k for k, v in task_map.items()}
     dependency_map = parse_upstream_dependencies(config)
 
@@ -193,10 +193,10 @@ def init_flags(prefab_flags: List = None) -> None:
         "-o", action="store", dest="ofile", default="compose.sh", type=pathlib.Path
     )
     parser.add_argument(
-        "-s",
-        action="store_true",
-        dest="strict",
-        help="Causes the utility to fail if any task file is not found",
+        "--no-check",
+        action="store_false",  # Store false to avoid a negative boolean in the code
+        dest="check_file_presence",
+        help="When set, the utility will not enforce the presence of task files",
     )
     parser.add_argument("-v", action="store_true", dest="verbose_output")
 
