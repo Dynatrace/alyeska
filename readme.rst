@@ -23,6 +23,7 @@ Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 
 .. image:: https://img.shields.io/travis/com/Dynatrace/alyeska/master
     :alt: Build Status
+    :target: https://github.com/Dynatrace/alyeska
 
 .. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
     :alt: Documentation Status
