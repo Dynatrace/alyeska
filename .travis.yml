@@ -10,4 +10,5 @@ before_install:
 install:
   - pip install .
 script:
-  - pytest -v
+  - pytest -v tests/compose
+  - pytest -v tests/logging
