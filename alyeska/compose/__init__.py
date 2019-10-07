@@ -24,12 +24,8 @@ Composer schedules Tasks in accordance with the DAG.
 from collections import defaultdict
 from copy import deepcopy
 from hashlib import md5
-import logging
-import os
 import pathlib
 from typing import Dict, Set
-from subprocess import run as subprocess_run
-from subprocess import check_output, CalledProcessError
 import sys
 
 from alyeska.compose.exceptions import CyclicGraphError, EarlyAbortError
@@ -46,28 +42,32 @@ class Task:
         env (str, optional): Which environment to run.
     """
 
-    def __init__(self, loc: pathlib.Path, env: str = sys.executable):
+    def __init__(
+        self, loc: pathlib.Path, env: str = sys.executable, validate_loc: bool = False
+    ):
         """Init a Task.
 
         Args:
             loc (pathlib.Path): location of the python script that runs the task.
             env (str, optional): Which environment to run.
+            validate_loc (bool, optional): if true, validates that the task file exists.
         """
         self._loc = None
         self._env = None
+        self._validate_loc = validate_loc
         # errors handled by property setter
         self.loc = loc
         self.env = env
 
     @property
     def loc(self):
-        return self._loc.resolve()
+        return self._loc.resolve(self._validate_loc)
 
     @loc.setter
     def loc(self, new_loc: pathlib.Path):
         if new_loc == "":
             raise ValueError("`loc` must not be an empty str")
-        self._loc = pathlib.Path(new_loc).resolve()
+        self._loc = pathlib.Path(new_loc).resolve(self._validate_loc)
 
     @property
     def env(self):

@@ -49,13 +49,9 @@ popd > /dev/null
 """
 
 import argparse
-from collections import defaultdict
-import logging
 import pathlib
 import time
-from typing import Dict, Set
-
-import yaml
+from typing import Dict, List, Set, Union
 
 from alyeska.compose import Task, Composer
 from alyeska.compose.config import (
@@ -63,6 +59,9 @@ from alyeska.compose.config import (
     parse_tasks,
     parse_upstream_dependencies,
 )
+
+# None until init_flags() is called.
+FLAGS: Union[argparse.Namespace, None] = None
 
 
 def get_docstring(compose_yaml: pathlib.Path) -> str:
@@ -109,7 +108,7 @@ def get_tasks_blocks(compose_yaml: pathlib.Path) -> str:
     compose_yaml = pathlib.Path(compose_yaml)
     config = parse_config(compose_yaml)
 
-    task_map = parse_tasks(config)
+    task_map = parse_tasks(config, FLAGS.check_file_presence)
     inv_task_map = {v: k for k, v in task_map.items()}
     dependency_map = parse_upstream_dependencies(config)
 
@@ -147,7 +146,9 @@ def convert_yaml_to_sh(
 
     Args:
         compose_yaml (pathlib.Path): Path to the config.yaml file
+        validate_tasks (bool, optional): If true, validates that the task file exists
         ofile (pathlib.Path, optional): Where to export shell file. Defaults to None.
+        shebang (str, options): The shebang line at the start of the output file.
 
     Returns:
         str: output of str file
@@ -166,7 +167,19 @@ def convert_yaml_to_sh(
     return shell_script
 
 
-def main():
+def init_flags(prefab_flags: List = None) -> None:
+    """ Initializes the flags for this tool.
+
+    Args:
+        prefab_flags (List, optional): A list of flags to parse. Useful for testing.
+
+    Returns:
+        None -- the now-parsed flags can be accessed through the FLAGS variable.
+    """
+    global FLAGS
+    if FLAGS:
+        raise ValueError("Cannot parse flags more than once.")
+
     parser = argparse.ArgumentParser(
         description="Convert compose.yaml to compose.sh script"
     )
@@ -179,10 +192,22 @@ def main():
     parser.add_argument(
         "-o", action="store", dest="ofile", default="compose.sh", type=pathlib.Path
     )
-    parser.add_argument("-v", action="store_true", dest="verbose_output", default=False)
-    args = parser.parse_args()
+    parser.add_argument(
+        "--no-check",
+        action="store_false",  # Store false to avoid a negative boolean in the code
+        dest="check_file_presence",
+        help="When set, the utility will not enforce the presence of task files",
+    )
+    parser.add_argument("-v", action="store_true", dest="verbose_output")
 
-    output = convert_yaml_to_sh(args.config_file, ofile=args.ofile)
+    if prefab_flags is None:
+        FLAGS = parser.parse_args()
+    else:
+        FLAGS = parser.parse_args(prefab_flags)
 
-    if args.verbose_output:
+
+def main():
+    init_flags()
+    output = convert_yaml_to_sh(FLAGS.config_file, FLAGS.strict, FLAGS.ofile)
+    if FLAGS.verbose_output:
         print(output)

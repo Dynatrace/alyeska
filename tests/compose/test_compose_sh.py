@@ -16,16 +16,14 @@
 ## ---------------------------------------------------------------------------
 """Test the compose-sh functionality
 """
-import os
-import pathlib
-
-import pytest
-
-from alyeska.compose.compose_sh import convert_yaml_to_sh
+from alyeska.compose.compose_sh import init_flags, convert_yaml_to_sh
 
 from test_compose_globals import COMPOSE_SMALL, COMPOSE_BIG, COMPOSE_CYCLE
 
 
 def test__convert_yaml_to_sh():
+    # The config_file value doesn't matter since we're passing it in explicitly,
+    # but we don't want to check for task file presence since they definitely don't exist.
+    init_flags(["foo", "--no-check"])
     actual = convert_yaml_to_sh(COMPOSE_SMALL)
     assert isinstance(actual, str)

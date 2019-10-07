@@ -6,6 +6,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 ### Added
 
+- Changed the default behavior of `compose_sh` to check that Task files actually exist
+- A new `--no-check` flag in `compose_sh` to skip checking for Task file presence
 - Created changelog.md
 - A new dependency: packaging >= 19.2
 
