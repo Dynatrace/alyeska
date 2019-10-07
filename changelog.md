@@ -9,14 +9,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Created changelog.md
 - A new dependency: packaging >= 19.2
 - Added CI/CD POC with Travis
+- Add shields to readme: build status, count bugs
 
 ### Fixed
 
 - ReadTheDocs documentation now builds properly
 
-## Removed
+### Removed
 
 - The check_environment function has been removed.
+- Remove shields: PyPI downloads, count open issues
 
 ## [0.2.0a0] - 2019-09-11
 
