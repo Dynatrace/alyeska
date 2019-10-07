@@ -1,8 +1,12 @@
 # Changelog
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
+---
 
-## [Unreleased]
+## Unreleased
+
+---
+
+## 0.3.0a0 - 2019-10-07
 
 ### Added
 
@@ -15,11 +19,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - ReadTheDocs documentation now builds properly
 
-## Removed
+### Removed
 
 - The check_environment function has been removed.
 
-## [0.2.0a0] - 2019-09-11
+---
+
+## 0.2.0a0 - 2019-09-11
 
 ### Added
 
@@ -28,10 +34,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 - Alyeska documentation is now on ReadTheDocs
 - Minor documentation upgrades
 
-## [0.1.0a0] - 2019-08-23
+---
+
+## 0.1.0a0 - 2019-08-23
 
 - First stable alpha release
 
+---
+
 [Unreleased]: https://github.com/Dynatrace/alyeska/tree/master
+[0.2.0a0]: https://github.com/Dynatrace/alyeska/tree/v0.3.0a
 [0.2.0a0]: https://github.com/Dynatrace/alyeska/tree/v0.2.0a
 [0.1.0a0]: https://github.com/Dynatrace/alyeska/tree/v0.1.0a
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
