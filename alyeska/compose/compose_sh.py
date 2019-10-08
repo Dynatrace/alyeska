@@ -206,8 +206,8 @@ def init_flags(prefab_flags: List = None) -> None:
         FLAGS = parser.parse_args(prefab_flags)
 
 
-def main():
-    init_flags()
-    output = convert_yaml_to_sh(FLAGS.config_file, FLAGS.strict, FLAGS.ofile)
+def main(args: List = None):
+    init_flags(args)
+    output = convert_yaml_to_sh(FLAGS.config_file, FLAGS.ofile)
     if FLAGS.verbose_output:
         print(output)
