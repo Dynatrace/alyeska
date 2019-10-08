@@ -16,7 +16,6 @@
 ## ---------------------------------------------------------------------------
 """Integration test for the compose-sh script
 """
-import os
 import pathlib
 
 import pytest
@@ -27,18 +26,18 @@ from test_compose_globals import COMPOSE_SMALL
 
 
 # Makes sure the output file is in this script's directory.
-OUTFILE: str = str(pathlib.Path(os.path.dirname(__file__), "out.sh"))
+OUTFILE_PATH: pathlib.Path = (pathlib.Path(__file__).parent / "out.sh").resolve()
 
 
 @pytest.fixture()
 def cleanup_output():
     yield
-    if os.path.exists(OUTFILE):
-        os.remove(OUTFILE)
+    if OUTFILE_PATH.exists():
+        OUTFILE_PATH.unlink()
 
 
 @pytest.mark.usefixtures("cleanup_output")
 def test__main():
     # Setting --no-check since we don't want to check for task file presence. They definitely don't exist.
-    actual = compose_sh.main([str(COMPOSE_SMALL), "-o", OUTFILE, "--no-check"])
-    assert os.path.exists(OUTFILE)
+    compose_sh.main([str(COMPOSE_SMALL), "-o", str(OUTFILE_PATH), "--no-check"])
+    assert OUTFILE_PATH.exists()
