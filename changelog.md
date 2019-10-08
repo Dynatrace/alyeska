@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+### Fixed
+
+- Fixes the check for a non-existent flag (issue #40)
+
 ---
 
 ## 0.3.0a0 - 2019-10-07
