@@ -41,7 +41,7 @@ copyright = "2019, Dynatrace LLC"
 author = "Nick Vogt"
 
 # The full version, including alpha/beta/rc tags
-release = "0.3.0a1"
+release = "0.3.1dev0"
 
 
 # -- General configuration ---------------------------------------------------

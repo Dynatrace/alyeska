@@ -26,6 +26,8 @@
 - A new `--no-check` flag in `compose_sh` to skip checking for Task file presence
 - Created changelog.md
 - A new dependency: packaging >= 19.2
+- Added CI/CD POC with Travis
+- Add shields to readme: build status, count bugs
 
 ### Fixed
 
@@ -34,6 +36,7 @@
 ### Removed
 
 - The check_environment function has been removed.
+- Remove shields: PyPI downloads, count open issues
 
 ---
 

@@ -1,0 +1,14 @@
+
+# Run tests w/ pytest
+language: python
+python: "3.7"
+before_install:
+  - python --version
+  - pip install --upgrade pip
+  - pip install --upgrade pytest
+  - pip install -r requirements.txt
+install:
+  - pip install .
+script:
+  - pytest -v tests/compose
+  - pytest -v tests/logging

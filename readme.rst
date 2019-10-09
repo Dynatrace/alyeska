@@ -1,33 +1,33 @@
 Alyeska /al-ee-EHS-kah/ n. A Data Engineering Toolkit
 =====================================================
 
-.. image:: https://img.shields.io/pypi/pyversions/alyeska.svg
-    :alt: Supported Versions
+.. image:: https://img.shields.io/pypi/v/alyeska.svg?color=blue
+    :alt: Version
     :target: https://pypi.org/project/alyeska/
 
 .. image:: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
     :alt: License
     :target: ./LICENSE
 
-.. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
-    :alt: Documentation Status
-    :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
-
-.. image:: https://img.shields.io/pypi/v/alyeska.svg?color=blue
-    :alt: Version
-    :target: https://pypi.org/project/alyeska/
-
-.. image:: https://img.shields.io/pypi/dw/alyeska.svg
-    :alt: PyPI - Downloads
+.. image:: https://img.shields.io/pypi/pyversions/alyeska.svg
+    :alt: Supported Versions
     :target: https://pypi.org/project/alyeska/
 
 .. image:: https://img.shields.io/github/last-commit/Dynatrace/alyeska.svg
     :alt: Last Commit
     :target: https://github.com/Dynatrace/alyeska
 
-.. image:: https://img.shields.io/github/issues/Dynatrace/alyeska.svg
-    :alt: Count Open Issues
-    :target: https://pypi.org/project/alyeska/
+.. image:: https://img.shields.io/travis/com/Dynatrace/alyeska/master
+    :alt: Build Status
+    :target: https://github.com/Dynatrace/alyeska
+
+.. image:: https://readthedocs.org/projects/alyeska/badge/?version=latest
+    :alt: Documentation Status
+    :target: https://alyeska.readthedocs.io/en/latest/?badge=latest
+
+.. image:: https://img.shields.io/github/issues/Dynatrace/alyeska/bug?color=red
+    :alt: Count Bugs
+    :target: https://github.com/Dynatrace/alyeska/issues?q=is%3Aopen+is%3Aissue+label%3Abug
 
 Alyeska is a data engineering toolkit to simplify the nuts & bolts of data engineering tasks.
 
