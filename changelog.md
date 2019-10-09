@@ -8,6 +8,10 @@
 
 - #36 Support parametrized queries in `sqlagent`
 
+### Deprecated
+
+- Deprecated some `sqlagent` functions: `plan_tasks`, `execute_tasks`, `process_batch`, `gather_subtasks`, `run_subtasks`, `execute_sql`, and `run_sql`.
+
 ---
 
 ## 0.3.0a0 - 2019-10-07
