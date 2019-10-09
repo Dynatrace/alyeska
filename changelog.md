@@ -4,6 +4,10 @@
 
 ## Unreleased
 
+### Added
+
+- #36 Support parametrized queries in `sqlagent`
+
 ---
 
 ## 0.3.0a0 - 2019-10-07
