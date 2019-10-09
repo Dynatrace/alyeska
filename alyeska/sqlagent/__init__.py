@@ -82,7 +82,6 @@ def parametrize_queries(
             yield formatted_query
 
 
-# replaces or helps alyeska.sqlagent.run_subtasks?
 def run_queries_sequentially(cnxn: psycopg2.extensions.connection, *queries) -> None:
     """Execute queries in sequence
 
@@ -98,7 +97,7 @@ def run_queries_sequentially_with_params(
     query_templates: List[str],
     param_dicts: List[Dict[str, str]],
 ) -> None:
-    """Format templates and run tasks sequentially
+    """Parametrize templates and run tasks sequentially
 
     Args:
         cnxn (psycopg2.extensions.connection): Database connection
