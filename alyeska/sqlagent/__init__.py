@@ -49,6 +49,29 @@ def find_sql_files(
             yield file_or_dir
 
 
+def execute_sql(cnxn: psycopg2.extensions.connection, cmd: str) -> None:
+    """Open `cnxn` and pass the `cmd` argument.
+
+    ? Should we handle EOF errors?
+
+    Args:
+        cnxn (psycopg2.extensions.connection): Connection used to execute command.
+        cmd (str): SQL command to be executed.
+
+    Returns:
+        None
+    """
+    if not isinstance(cnxn, psycopg2.extensions.connection):
+        raise TypeError("cnxn must be a psycopg2 connection")
+    if not isinstance(cmd, str):
+        raise TypeError("cmd must be a str")
+
+    with cnxn.cursor() as rs:
+        rs.execute(cmd)
+
+    return True
+
+
 def parametrize_queries(
     query_templates: List[str], param_dicts: List[Dict[str, str]]
 ) -> Coroutine[str, None, str]:
@@ -239,29 +262,6 @@ def run_subtasks(
         p = pathlib.Path(subtask)
         logging.info(log_text)
         execute_sql(cnxn, p.read_text())
-
-
-def execute_sql(cnxn: psycopg2.extensions.connection, cmd: str) -> None:
-    """Open `cnxn` and pass the `cmd` argument.
-
-    ? Should we handle EOF errors?
-
-    Args:
-        cnxn (psycopg2.extensions.connection): Connection used to execute command.
-        cmd (str): SQL command to be executed.
-
-    Returns:
-        None
-    """
-    if not isinstance(cnxn, psycopg2.extensions.connection):
-        raise TypeError("cnxn must be a psycopg2 connection")
-    if not isinstance(cmd, str):
-        raise TypeError("cmd must be a str")
-
-    with cnxn.cursor() as rs:
-        rs.execute(cmd)
-
-    return True
 
 
 def run_sql(cnxn: psycopg2.extensions.connection, fp: pathlib.Path, msg: str) -> None:
