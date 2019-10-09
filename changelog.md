@@ -10,7 +10,7 @@
 
 ### Deprecated
 
-- Deprecated some `sqlagent` functions: `plan_tasks`, `execute_tasks`, `process_batch`, `gather_subtasks`, `run_subtasks`, `execute_sql`, and `run_sql`.
+- Deprecated some `sqlagent` functions: `plan_tasks`, `execute_tasks`, `process_batch`, `gather_subtasks`, `run_subtasks`, and `run_sql`.
 
 ---
 
