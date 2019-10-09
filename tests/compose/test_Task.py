@@ -15,18 +15,18 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 """Unit tests for the Task class."""
-
+import os
 import pathlib
 
 import pytest
 
 from alyeska.compose import Task
 
-from test_compose_globals import COMPOSE_SMALL, COMPOSE_BIG, COMPOSE_CYCLE
-
 
 def test__Task_init():
-    good_loc = "path/to/file.py"
+    # This looks gross, but it lets you run the test from anywhere
+    existent_loc = pathlib.Path(os.path.dirname(__file__), "tea-tasks/boil_water.py")
+    non_existent_loc = "path/to/file.py"
     good_env = "python"
 
     with pytest.raises(TypeError):
@@ -39,14 +39,18 @@ def test__Task_init():
         Task(loc="", env=good_env)
 
     with pytest.raises(TypeError):
-        Task(loc=good_loc, env=None)
+        Task(loc=existent_loc, env=None)
 
     with pytest.raises(ValueError):
-        Task(loc=good_loc, env="")
+        Task(loc=existent_loc, env="")
+
+    with pytest.raises(FileNotFoundError):
+        Task(loc=non_existent_loc, env=good_env, validate_loc=True)
 
     # these should run without issue
-    Task(loc=good_loc)
-    Task(loc=good_loc, env=good_env)
+    Task(loc=non_existent_loc)
+    Task(loc=non_existent_loc, env=good_env)
+    Task(loc=existent_loc, env=good_env, validate_loc=True)
 
 
 def test__Task_repr():

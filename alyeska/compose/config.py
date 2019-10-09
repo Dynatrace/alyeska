@@ -18,14 +18,12 @@
 """
 
 from collections import defaultdict
-import logging
 import pathlib
-from typing import Dict, List, Set
+from typing import Dict, Set
 
 import yaml
 
-from alyeska.compose import Task, DAG, Composer
-from alyeska.compose.exceptions import ConfigurationError
+from alyeska.compose import Task
 from alyeska.compose.validate import validate_config
 
 
@@ -48,11 +46,12 @@ def parse_config(p: pathlib.Path) -> Dict:
     return config
 
 
-def parse_tasks(config: Dict) -> Dict[str, Task]:
+def parse_tasks(config: Dict, validate_tasks: bool = False) -> Dict[str, Task]:
     """Map task aliases to their Task object representation
 
     Args:
         config (Dict): compose.yaml as dict
+        validate_tasks (bool, optional): if true, validates that the task file exists
 
     Returns:
         Dict[str, Task]: Dict mapping task aliases to Task objects
@@ -61,22 +60,15 @@ def parse_tasks(config: Dict) -> Dict[str, Task]:
     tasks_dir = config.get("tasks-dir")
     entrypoint = config.get("entrypoint")
     for task_name, task_config in config["tasks"].items():
-        # ugly but clear if-else chains
-        try:
-            task_loc = task_config["loc"]
-        except KeyError:
-            task_loc = task_name
+        # potentially unset key
+        task_loc = task_config.get("loc", task_name)
 
-        if tasks_dir and entrypoint:
-            path = pathlib.Path(tasks_dir, task_loc, entrypoint)
-        elif tasks_dir:
-            path = pathlib.Path(tasks_dir, task_loc)
-        elif entrypoint:
-            path = pathlib.Path(task_loc, entrypoint)
-        else:
-            path = task_loc
+        # only task_loc is guaranteed present
+        path_components = filter(None, [tasks_dir, task_loc, entrypoint])
+        path = pathlib.Path(*path_components)
+
         env = task_config["env"]
-        task_map[task_name] = Task(loc=path, env=env)
+        task_map[task_name] = Task(path, env, validate_tasks)
 
     return task_map
 

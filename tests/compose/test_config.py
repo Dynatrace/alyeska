@@ -16,17 +16,9 @@
 ## ---------------------------------------------------------------------------
 """Test the compose submodule
 """
-from collections import defaultdict
-import os
-import pathlib
-from pprint import pprint
 
 import pytest
-import yaml
-from yaml import Loader, Dumper
 
-from alyeska.compose import Task, DAG
-from alyeska.compose.exceptions import ConfigurationError, CyclicGraphError
 from alyeska.compose.config import (
     validate_config,
     parse_upstream_dependencies,
