@@ -23,6 +23,7 @@ import logging
 import os
 import pathlib
 from typing import Tuple, Coroutine, List, Dict
+import warnings
 
 import psycopg2
 
@@ -48,6 +49,72 @@ def find_sql_files(
             yield file_or_dir
 
 
+def parametrize_queries(
+    query_templates: List[str], param_dicts: List[Dict[str, str]]
+) -> Coroutine[str, None, str]:
+    """Parametrize queries with the given param dicts.
+
+    Expect len(query_templates) * len(param_dicts) queries.
+
+    Args:
+        query_templates (List[str]): Query templates to be parametrized
+        param_dicts (List[Dict[str, str]]): mappings used to parametrize query
+            templates
+    """
+
+    def replace_all(template: str, param_dict: Dict) -> str:
+        """Replace patterns in the template with pattern: replacement pairs
+        from the param_dict.
+        """
+        query = template
+        for pattern, replacement in param_dict.items():
+            query = query.replace(pattern, replacement)
+
+        return query
+
+    count_queries = len(query_templates) * len(param_dicts)
+    logging.info(f"Parametrize {count_queries} queries")
+
+    for param_dict in param_dicts:
+        for query_template in query_templates:
+            formatted_query = replace_all(query_template, param_dict)
+
+            yield formatted_query
+
+
+# replaces or helps alyeska.sqlagent.run_subtasks?
+def run_queries_sequentially(cnxn: psycopg2.extensions.connection, *queries) -> None:
+    """Execute queries in sequence
+
+    Args:
+        cnxn (psycopg2.extensions.connection): Database connection
+    """
+    for query in queries:
+        aly.sqlagent.execute_sql(cnxn, query)
+
+
+def run_queries_sequentially_with_params(
+    cnxn: psycopg2.extensions.connection,
+    query_templates: List[str],
+    param_dicts: List[Dict[str, str]],
+) -> None:
+    """Format templates and run tasks sequentially
+
+    Args:
+        cnxn (psycopg2.extensions.connection): Database connection
+        query_templates (List[str]): Query templates to be formatted
+        param_dicts (List[Dict[str, str]]): Param mappings used to format
+            query templates
+    """
+    queries = parametrize_queries(query_templates, param_dicts)
+    run_queries_sequentially(cnxn, *queries)
+
+
+# ----------------------------------------------------------------------------
+# Deprecated Functions -------------------------------------------------------
+# ----------------------------------------------------------------------------
+
+
 def plan_tasks(sql_dir: pathlib.Path) -> List[pathlib.Path]:
     """Generate an ordered sequence of SQL files.
 
@@ -62,6 +129,14 @@ def plan_tasks(sql_dir: pathlib.Path) -> List[pathlib.Path]:
         creates a list. Returning this sorted list as a generator would just
         create computational overhead.
     """
+    warnings.warn(
+        message=(
+            "alyeska.sqlagent.plan_tasks is deprecated; "
+            "load SQL into memory and arrange tasks manually,"
+            "or consider using alyeska.compose"
+        ),
+        category=DeprecationWarning,
+    )
     sql_dir = pathlib.Path(sql_dir)
 
     return sorted(find_sql_files(sql_dir, include_subdirs=True), key=lambda p: p.name)
@@ -73,6 +148,13 @@ def execute_tasks(cnxn: psycopg2.extensions.connection, *tasks: pathlib.Path) ->
     Args:
         cnxn (psycopg2.extensions.connection): [description]
     """
+    warnings.warn(
+        message=(
+            "alyeska.sqlagent.execute_tasks is deprecated; "
+            "use alyeska.sqlagent.run_tasks_sequentially"
+        ),
+        category=DeprecationWarning,
+    )
     # assert all tasks are valid before executing them all
     tasks = [pathlib.Path(task) for task in tasks]
     assert all([task.exists() for task in tasks])  # TODO: Raise a meaningful error
@@ -93,6 +175,14 @@ def process_batch(cnxn: psycopg2.extensions.connection, sql_dir: pathlib.Path) -
     Returns:
         None: [description]
     """
+    warnings.warn(
+        message=(
+            "alyeska.sqlagent.process_batch is deprecated; "
+            "load SQL into memory and use "
+            "alyeska.sqlagent.run_tasks_sequentially instead"
+        ),
+        category=DeprecationWarning,
+    )
     sql_dir = pathlib.Path(sql_dir)
     tasks = plan_tasks(sql_dir)
     execute_tasks(cnxn, *tasks)
@@ -107,6 +197,13 @@ def gather_subtasks(d: Dict) -> OrderedDict:
     Returns:
         OrderedDict: map tasks to log messages in order of execution
     """
+    warnings.warn(
+        message=(
+            "alyeska.sqlagent.gather_subtasks is deprecated; "
+            "use built-in collections.OrderedDict"
+        ),
+        category=DeprecationWarning,
+    )
     if not all(isinstance(k, str) for k in d.keys()):
         raise TypeError("Subtasks must be str")
     if not all(isinstance(v, str) for v in d.values() if v is not None):
@@ -129,6 +226,14 @@ def run_subtasks(
     Returns:
         None
     """
+    warnings.warn(
+        message=(
+            "alyeska.sqlagent.run_subtasks is deprecated; "
+            "use alyeska.sqlagent.run_queries_sequentially"
+        ),
+        category=DeprecationWarning,
+    )
+
     if not all(pathlib.Path(k).suffix == ".sql" for k in subtasks.keys()):
         raise ValueError("Some subtasks are not sql files")
     for subtask, log_text in subtasks.items():
@@ -171,6 +276,15 @@ def run_sql(cnxn: psycopg2.extensions.connection, fp: pathlib.Path, msg: str) ->
     Returns:
         None
     """
+    warnings.warn(
+        message=(
+            "alyeska.sqlagent.run_sql is deprecated; "
+            "load the sql into memory as a string and "
+            "use alyeska.sqlagent.execute_sql"
+        ),
+        category=DeprecationWarning,
+    )
+
     if not isinstance(cnxn, psycopg2.extensions.connection):
         raise TypeError("cnxn must be a psycopg2 connection")
     if not isinstance(msg, str):

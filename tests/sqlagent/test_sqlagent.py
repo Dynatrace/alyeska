@@ -76,6 +76,65 @@ def test_output__find_sql_files(tmpdir):
     assert sql3 in files
 
 
+def test__parametrize_queries():
+    query_template = "SELECT '{{my_date}}'::DATE, '{{my_int}}'::INT"
+    queries = sa.parametrize_queries(
+        query_templates=[query_template],
+        param_dicts=[
+            {"{{my_date}}": "2000-01-01", "{{my_int}}": "1"},
+            {"{{my_date}}": "2000-01-02", "{{my_int}}": "2"},
+        ],
+    )
+    queries = list(queries)
+    assert queries[0] == "SELECT '2000-01-01'::DATE, '1'::INT"
+    assert queries[1] == "SELECT '2000-01-02'::DATE, '2'::INT"
+
+
+def test__run_queries_sequentially(tmpdir):
+    cnxn = connect_with_environment(ALYESKA_REDSHIFT_SECRET)
+
+    create_query = "CREATE TEMP TABLE temp_alyeska(id INT);"
+    insert_template = (
+        "INSERT INTO temp_alyeska(id) VALUES ({{int1}}), ({{int2}}), ({{int3}});"
+    )
+    insert_queries = sa.parametrize_queries(
+        query_templates=[insert_template],
+        param_dicts=[
+            {"{{int1}}": "1", "{{int2}}": "2", "{{int3}}": "3"},
+            {"{{int1}}": "4", "{{int2}}": "5", "{{int3}}": "6"},
+        ],
+    )
+    sa.run_queries_sequentially(cnxn, create_query, *insert_queries)
+
+    expectation = [1, 2, 3, 4, 5, 6]
+    result = pd.read_sql("SELECT id FROM temp_alyeska ORDER BY id", cnxn)["id"].tolist()
+    assert result == expectation
+
+
+def test__run_queries_sequentially_with_params(tmpdir):
+    cnxn = connect_with_environment(ALYESKA_REDSHIFT_SECRET)
+    insert_template = "INSERT INTO temp_alyeska(id) VALUES ({{my_int}});"
+    param_dicts = [{"{{my_int}}": str(i)} for i in range(1, 11)]
+
+    sa.execute_sql(cnxn, "CREATE TEMP TABLE temp_alyeska(id INT);")
+    # fmt: off
+    sa.run_queries_sequentially_with_params(
+        cnxn,
+        query_templates=[insert_template],
+        param_dicts=param_dicts
+    )
+    # fmt: on
+
+    expectation = list(range(1, 11))
+    result = pd.read_sql("SELECT id FROM temp_alyeska ORDER BY id", cnxn)["id"].tolist()
+    assert result == expectation
+
+
+# ----------------------------------------------------------------------------
+# Deprecated Functions -------------------------------------------------------
+# ----------------------------------------------------------------------------
+
+
 def test_output__plan_tasks__flat_dir(tmpdir):
     sql1, sql2, sql3, _ = make_dummy_dir(tmpdir)
     files = sa.plan_tasks(tmpdir)
