@@ -15,7 +15,7 @@
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
 """Unit tests for the Task class."""
-
+import os
 import pathlib
 
 import pytest
@@ -24,10 +24,8 @@ from alyeska.compose import Task
 
 
 def test__Task_init():
-    # This looks gross, but it let's you run the test from anywhere
-    existent_loc = pathlib.Path(
-        *pathlib.Path(__file__).parts[0:-1], "tea-tasks/boil_water.py"
-    )
+    # This looks gross, but it lets you run the test from anywhere
+    existent_loc = pathlib.Path(os.path.dirname(__file__), "tea-tasks/boil_water.py")
     non_existent_loc = "path/to/file.py"
     good_env = "python"
 

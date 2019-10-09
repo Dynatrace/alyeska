@@ -14,16 +14,30 @@
 ## See the License for the specific language governing permissions and
 ## limitations under the License.
 ## ---------------------------------------------------------------------------
-"""Test the compose-sh functionality
+"""Integration test for the compose-sh script
 """
-from alyeska.compose.compose_sh import init_flags, convert_yaml_to_sh
+import pathlib
 
-from test_compose_globals import COMPOSE_SMALL, COMPOSE_BIG, COMPOSE_CYCLE
+import pytest
+
+import alyeska.compose.compose_sh as compose_sh
+
+from test_compose_globals import COMPOSE_SMALL
 
 
-def test__convert_yaml_to_sh():
-    # The config_file value doesn't matter since we're passing it in explicitly,
-    # but we don't want to check for task file presence since they definitely don't exist.
-    init_flags(["foo", "--no-check"])
-    actual = convert_yaml_to_sh(COMPOSE_SMALL)
-    assert isinstance(actual, str)
+# Makes sure the output file is in this script's directory.
+OUTFILE_PATH: pathlib.Path = (pathlib.Path(__file__).parent / "out.sh").resolve()
+
+
+@pytest.fixture()
+def cleanup_output():
+    yield
+    if OUTFILE_PATH.exists():
+        OUTFILE_PATH.unlink()
+
+
+@pytest.mark.usefixtures("cleanup_output")
+def test__main():
+    # Setting --no-check since we don't want to check for task file presence. They definitely don't exist.
+    compose_sh.main([str(COMPOSE_SMALL), "-o", str(OUTFILE_PATH), "--no-check"])
+    assert OUTFILE_PATH.exists()
